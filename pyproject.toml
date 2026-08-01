@@ -1,0 +1,10 @@
+[project]
+name = "cine-gate"
+version = "0.5.0"
+description = "Agentic rights-clearance and human-review workflow for film production"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
