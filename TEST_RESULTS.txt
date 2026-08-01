@@ -1,0 +1,13 @@
+CINE-GATE Milestone 5 verification
+
+python -m pytest -q
+57 passed
+
+python scripts/run_quality_gate.py
+8/8 deterministic scenarios passed
+
+node --check app/static/app.js
+passed
+
+python -m compileall -q app deployment/agent_engine scripts
+passed

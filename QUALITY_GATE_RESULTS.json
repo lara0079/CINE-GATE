@@ -1,0 +1,53 @@
+{
+  "quality_gate": "passed",
+  "cases": [
+    {
+      "case": "complete synthetic trailer",
+      "expected": "CLEARED",
+      "actual": "CLEARED",
+      "passed": true
+    },
+    {
+      "case": "missing music permission",
+      "expected": "BLOCKED",
+      "actual": "BLOCKED",
+      "passed": true
+    },
+    {
+      "case": "pending score license",
+      "expected": "REVIEW_REQUIRED",
+      "actual": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "case": "voice-clone scope absent",
+      "expected": "BLOCKED",
+      "actual": "BLOCKED",
+      "passed": true
+    },
+    {
+      "case": "streaming outside scope",
+      "expected": "BLOCKED",
+      "actual": "BLOCKED",
+      "passed": true
+    },
+    {
+      "case": "license fingerprint absent but reference present",
+      "expected": "CLEARED",
+      "actual": "CLEARED",
+      "passed": true
+    },
+    {
+      "case": "undeclared archival footage",
+      "expected": "REVIEW_REQUIRED",
+      "actual": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "case": "commercial score restriction",
+      "expected": "BLOCKED",
+      "actual": "BLOCKED",
+      "passed": true
+    }
+  ]
+}
