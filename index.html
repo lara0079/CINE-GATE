@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CINE-GATE agentic film-production rights-clearance workflow">
+  <title>CINE-GATE</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="app-status" class="sr-only" aria-live="assertive"></div>
+
+  <main id="main-content" class="shell" tabindex="-1">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">AGENTIC RIGHTS CLEARANCE FOR FILM PRODUCTION</p>
+        <h1>CINE-GATE</h1>
+        <p class="subtitle">Discover possible rights-bearing assets, test supplied permissions against a proposed release, and route unresolved cases to a named human reviewer before publication.</p>
+      </div>
+      <div class="hero-meta" aria-label="System status">
+        <span class="badge">Milestone 5 · Competition Edition</span>
+        <span id="agent-mode" class="badge secondary">Agent: loading</span>
+        <span id="system-ready" class="badge secondary">System: checking</span>
+      </div>
+    </header>
+
+    <section class="metrics" aria-label="Review metrics">
+      <article><span id="metric-total">0</span><small>Total reviews</small></article>
+      <article><span id="metric-cases">0</span><small>Cases</small></article>
+      <article><span id="metric-revisions">0</span><small>Revisions</small></article>
+      <article><span id="metric-cleared">0</span><small>Cleared</small></article>
+      <article><span id="metric-review">0</span><small>Human review</small></article>
+      <article><span id="metric-blocked">0</span><small>Blocked</small></article>
+    </section>
+
+    <nav class="tabs" role="tablist" aria-label="CINE-GATE sections">
+      <button id="tab-new-review" class="tab active" role="tab" aria-selected="true" aria-controls="new-review" tabindex="0" data-tab="new-review">New review</button>
+      <button id="tab-history" class="tab" role="tab" aria-selected="false" aria-controls="history" tabindex="-1" data-tab="history">Review history</button>
+      <button id="tab-system-map" class="tab" role="tab" aria-selected="false" aria-controls="system-map" tabindex="-1" data-tab="system-map">Agent system</button>
+      <button id="tab-about" class="tab" role="tab" aria-selected="false" aria-controls="about" tabindex="-1" data-tab="about">How it works</button>
+    </nav>
+
+    <section id="new-review" class="tab-panel active" role="tabpanel" aria-labelledby="tab-new-review">
+      <section class="panel scenario-panel">
+        <div>
+          <p class="section-kicker">DEMO SCENARIOS</p>
+          <h2>Load a reproducible production case</h2>
+        </div>
+        <div class="scenario-buttons">
+          <button type="button" class="secondary-button" data-scenario="cleared">Cleared trailer</button>
+          <button type="button" class="secondary-button" data-scenario="review">Unresolved music</button>
+          <button type="button" class="secondary-button" data-scenario="blocked">Expired likeness</button>
+          <button type="button" class="secondary-button" data-scenario="synthetic">Synthetic voice</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">PROPOSED ACTION</p>
+            <h2 id="form-title">Review production rights</h2>
+          </div>
+          <p class="disclaimer" id="form-disclaimer">Metadata review only. CINE-GATE does not authenticate documents, establish ownership, or provide legal advice.</p>
+        </div>
+
+        <div id="revision-banner" class="revision-banner hidden" role="status">
+          <div><strong>Corrected revision mode</strong><span id="revision-banner-text"></span></div>
+          <button type="button" id="cancel-revision" class="text-button">Cancel revision</button>
+        </div>
+
+        <form id="review-form" aria-describedby="form-disclaimer">
+          <div class="grid two">
+            <label>Project name<input id="project_name" value="Asteria" required maxlength="160" autocomplete="off"></label>
+            <label>Production action
+              <select id="action_type">
+                <option value="public_trailer">Public trailer</option>
+                <option value="festival_submission">Festival submission</option>
+                <option value="commercial_release">Commercial release</option>
+                <option value="social_media_publication">Social media publication</option>
+                <option value="asset_generation">Asset generation</option>
+                <option value="internal_review">Internal review</option>
+              </select>
+            </label>
+          </div>
+          <label>Action description<textarea id="description" required maxlength="5000">Publish a public trailer containing the lead performer's digital likeness and licensed original score.</textarea></label>
+          <div class="grid two">
+            <label>Planned date<input id="planned_date" type="date"></label>
+            <label>Intended territories<input id="territories" value="worldwide" placeholder="worldwide or Greece, Germany"></label>
+          </div>
+
+          <section class="context-box" aria-labelledby="release-context-heading">
+            <div class="section-heading compact">
+              <div><p class="section-kicker">RELEASE CONTEXT</p><h3 id="release-context-heading">How the material will be used</h3></div>
+            </div>
+            <fieldset class="fieldset-reset">
+              <legend class="sr-only">Distribution channels</legend>
+              <div class="channel-grid" id="release-channels">
+                <label class="check-chip"><input type="checkbox" value="festival"> Festival</label>
+                <label class="check-chip"><input type="checkbox" value="theatrical"> Theatrical</label>
+                <label class="check-chip"><input type="checkbox" value="streaming"> Streaming</label>
+                <label class="check-chip"><input type="checkbox" value="broadcast"> Broadcast</label>
+                <label class="check-chip"><input type="checkbox" value="social" checked> Social</label>
+                <label class="check-chip"><input type="checkbox" value="advertising"> Advertising</label>
+                <label class="check-chip"><input type="checkbox" value="internal"> Internal</label>
+              </div>
+            </fieldset>
+            <div class="toggle-grid">
+              <label class="inline-check"><input type="checkbox" id="commercial_use"> Commercial use</label>
+              <label class="inline-check"><input type="checkbox" id="modifications_planned"> Editing or adaptation planned</label>
+              <label class="inline-check"><input type="checkbox" id="synthetic_media_use" checked> Synthetic-media use</label>
+            </div>
+          </section>
+
+          <div class="asset-heading">
+            <div>
+              <p class="section-kicker">ASSET INVENTORY</p>
+              <h3>Declared rights-bearing assets</h3>
+            </div>
+            <button type="button" id="add-asset" class="secondary-button">Add asset</button>
+          </div>
+          <div id="asset-list"></div>
+
+          <button type="submit" id="submit-review" class="primary-button">Run agentic clearance review</button>
+        </form>
+      </section>
+
+      <section id="result" class="panel hidden" aria-live="polite" tabindex="-1"></section>
+    </section>
+
+    <section id="history" class="tab-panel" role="tabpanel" aria-labelledby="tab-history" hidden>
+      <section class="panel">
+        <div class="section-heading">
+          <div><p class="section-kicker">REVIEW RECORDS</p><h2>Recent activity</h2></div>
+          <button type="button" id="refresh-history" class="secondary-button">Refresh</button>
+        </div>
+        <div class="history-filters">
+          <label>Search<input id="history-query" placeholder="Project or action" autocomplete="off"></label>
+          <label>Outcome
+            <select id="history-outcome">
+              <option value="">All outcomes</option>
+              <option value="CLEARED">Cleared</option>
+              <option value="REVIEW_REQUIRED">Human review</option>
+              <option value="BLOCKED">Blocked</option>
+            </select>
+          </label>
+        </div>
+        <div id="history-list" class="history-list" aria-live="polite"><p class="muted">No reviews yet.</p></div>
+      </section>
+    </section>
+
+    <section id="system-map" class="tab-panel" role="tabpanel" aria-labelledby="tab-system-map" hidden>
+      <section class="panel system-hero">
+        <div><p class="section-kicker">BOUNDED MULTI-AGENT CONTROL PLANE</p><h2>AI where it helps. Deterministic control where it matters.</h2><p>The agent layer discovers possible rights issues and prepares a release brief. The recorded decision remains traceable to deterministic metadata checks and named human control.</p></div>
+        <div id="integration-state" class="integration-state"><span>Loading system capabilities…</span></div>
+      </section>
+      <section id="runtime-layers" class="panel agent-map" aria-live="polite"></section>
+      <section class="panel boundary-grid">
+        <article><p class="section-kicker">GOOGLE CLOUD</p><h3>Gemini + ADK + Agent Engine</h3><p>Deployment-ready multi-agent package with concurrent discovery, structured synthesis, managed sessions, and Cloud Trace configuration.</p></article>
+        <article><p class="section-kicker">IBM TRACK</p><h3>Bob-assisted SDLC evidence</h3><p>Bounded Bob tasks, a protected workspace, review-first workflow, and an evidence ledger that must be completed through the entrant account.</p></article>
+        <article><p class="section-kicker">CONTROL BOUNDARY</p><h3>No autonomous clearance</h3><p>Agents cannot invent permission, authenticate documents, override a blocked result, or replace a qualified rights reviewer.</p></article>
+      </section>
+    </section>
+
+    <section id="about" class="tab-panel" role="tabpanel" aria-labelledby="tab-about" hidden>
+      <section class="panel process-grid">
+        <article><span>01</span><h3>Discover</h3><p>An advisory agent identifies rights-bearing material implied by the action description.</p></article>
+        <article><span>02</span><h3>Check</h3><p>A deterministic policy checks status, use, channel, territory, dates, commercial, modification, synthetic-media, minor-subject, attribution, and evidence metadata.</p></article>
+        <article><span>03</span><h3>Explain</h3><p>Gemini can explain recorded findings but cannot change the deterministic outcome or invent permission.</p></article>
+        <article><span>04</span><h3>Resolve</h3><p>A named human records a decision, or creates a corrected revision when the supplied record must change.</p></article>
+      </section>
+      <section class="panel boundary-card">
+        <p class="section-kicker">PRODUCT BOUNDARY</p>
+        <h2>A focused rights workflow, not a legal oracle</h2>
+        <p>CINE-GATE evaluates supplied metadata and produces a reviewable rights matrix, evidence packet, release package, checksum, and printable report. It does not verify a contract's authenticity, decide ownership, or expose any unrelated proprietary architecture.</p>
+      </section>
+    </section>
+  </main>
+
+  <template id="asset-template">
+    <article class="asset-card">
+      <div class="asset-card-header">
+        <h4>Asset <span class="asset-number"></span></h4>
+        <button type="button" class="remove-asset text-button">Remove</button>
+      </div>
+      <div class="grid three">
+        <label>Asset type
+          <select class="asset-type">
+            <option value="likeness">Likeness</option><option value="voice">Voice</option>
+            <option value="music">Music</option><option value="footage">Footage</option>
+            <option value="script">Script</option><option value="artwork">Artwork</option>
+            <option value="location">Location</option><option value="other">Other</option>
+          </select>
+        </label>
+        <label>Asset name<input class="asset-name" required maxlength="200"></label>
+        <label>Owner or subject<input class="asset-owner" required maxlength="200"></label>
+      </div>
+      <div class="toggle-grid compact-toggles">
+        <label class="inline-check"><input type="checkbox" class="ai-generated"> AI-generated or synthetically modified</label>
+        <label class="inline-check"><input type="checkbox" class="subject-minor"> Subject is a minor</label>
+      </div>
+      <div class="permission-box">
+        <p class="section-kicker">PERMISSION RECORD</p>
+        <div class="grid three">
+          <label>Status
+            <select class="permission-status">
+              <option value="granted">Granted</option><option value="pending">Pending</option>
+              <option value="denied">Denied</option><option value="unknown">Unknown</option>
+              <option value="revoked">Revoked</option>
+            </select>
+          </label>
+          <label>Evidence type
+            <select class="evidence-type">
+              <option value="consent_form">Consent form</option><option value="license">License</option>
+              <option value="contract">Contract</option><option value="release">Release</option>
+              <option value="email_confirmation">Email confirmation</option>
+              <option value="internal_record">Internal record</option><option value="other">Other</option>
+              <option value="">Not recorded</option>
+            </select>
+          </label>
+          <label>Permission territories<input class="permission-territories" value="worldwide"></label>
+        </div>
+        <div class="grid three">
+          <label>Valid from<input class="valid-from" type="date"></label>
+          <label>Valid until<input class="valid-until" type="date"></label>
+          <label>Evidence reference<input class="evidence-reference" maxlength="500" placeholder="license://record/001"></label>
+        </div>
+        <label>Evidence SHA-256 fingerprint<input class="evidence-sha" maxlength="64" pattern="[a-fA-F0-9]{64}" placeholder="Optional 64-character document fingerprint"></label>
+        <fieldset class="permission-channel-wrap fieldset-reset">
+          <legend>Allowed distribution channels</legend>
+          <div class="channel-grid permission-channels">
+            <label class="check-chip"><input type="checkbox" value="festival"> Festival</label>
+            <label class="check-chip"><input type="checkbox" value="theatrical"> Theatrical</label>
+            <label class="check-chip"><input type="checkbox" value="streaming"> Streaming</label>
+            <label class="check-chip"><input type="checkbox" value="broadcast"> Broadcast</label>
+            <label class="check-chip"><input type="checkbox" value="social" checked> Social</label>
+            <label class="check-chip"><input type="checkbox" value="advertising"> Advertising</label>
+            <label class="check-chip"><input type="checkbox" value="internal"> Internal</label>
+          </div>
+        </fieldset>
+        <div class="grid four">
+          <label>Commercial use<select class="commercial-allowed"><option value="true">Allowed</option><option value="false">Not allowed</option><option value="null">Not recorded</option></select></label>
+          <label>Modification<select class="modification-allowed"><option value="true">Allowed</option><option value="false">Not allowed</option><option value="null">Not recorded</option></select></label>
+          <label>Synthetic use<select class="synthetic-allowed"><option value="true">Allowed</option><option value="false">Not allowed</option><option value="null">Not recorded</option></select></label>
+          <label>Guardian authorization<select class="guardian-authorization"><option value="null">Not applicable / unknown</option><option value="true">Recorded</option><option value="false">Not recorded</option></select></label>
+        </div>
+        <div class="grid three">
+          <label>Exclusivity<select class="exclusivity"><option value="unknown">Unknown</option><option value="non_exclusive">Non-exclusive</option><option value="exclusive">Exclusive</option></select></label>
+          <label>Source system<input class="source-system" maxlength="160" placeholder="Contract repository"></label>
+          <label>Attribution text<input class="attribution-text" maxlength="500" placeholder="Required credit wording"></label>
+        </div>
+        <label class="inline-check"><input type="checkbox" class="attribution-required"> Attribution required</label>
+      </div>
+    </article>
+  </template>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
