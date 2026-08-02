@@ -1,4 +1,4 @@
-CINE-GATE
+# CINE-GATE
 
 **Bounded multi-agent rights discovery, deterministic release control, and accountable human review for film production.**
 
@@ -6,7 +6,7 @@ CINE-GATE is a new, independent hackathon project for the Google Cloud Agentic C
 
 CINE-GATE is not a legal oracle. It is a new, domain-specific hackathon project with a deliberately bounded scope.
 
- Milestone 5 - Competition Edition
+## Milestone 5 — Competition Edition
 
 - premium responsive production-rights command interface
 - five-layer bounded workflow: Rights Scout, Scope Controller, Evidence Mapper, Release Brief Agent, Human Control Plane

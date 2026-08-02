@@ -1,0 +1,23 @@
+# Keep secrets, local evidence, databases, archives, and unrelated proprietary material outside IBM Bob context.
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.sqlite
+*.sqlite3
+*.db
+data/
+secrets/
+credentials/
+private/
+*BACKUP*
+*PRIVATE*
+confidential/
+*.zip
+.pytest_cache/
+__pycache__/
+.venv/
+venv/
+node_modules/
